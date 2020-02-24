@@ -1,0 +1,90 @@
+
+
+.Pip:before {
+    text-decoration: line-through;
+    content: "ПИПу";
+}
+
+.Header {
+    font-weight: bold;
+    font-family: monospace;
+    color: #45688E;
+}
+
+.Header * {
+    margin-top: 5px;
+}
+
+.Header h1 {
+    font-size: 25pt;
+    color: darkblue;
+}
+
+.Header h2 {
+    font-size: 18pt;
+}
+
+.Header h3 {
+    font-size: 14pt;
+    color: #5E81A8;
+}
+
+.Header h4 {
+    font-size: 14pt;
+    color: cornflowerblue;
+}
+
+#body {
+    background: url('../img/background.png') white;
+    text-align: center;
+    margin: 1% auto 0 auto;
+}
+
+.Time {
+    font-family: Chandas, serif;
+    font-size: 26pt;
+    color: #45688E;
+    margin-top: 3%
+}
+
+.Table {
+    width: 60%;
+    table-layout: auto;
+    margin: 2% auto;
+    background: #5E81A8;
+}
+
+.Table td, th {
+    border: 2px solid black;
+    text-align: center;
+    font-family: monospace;
+    font-size: 14pt;
+}
+
+.History {
+    display: none;
+}
+
+.fancyTable {
+    border: 2px solid black;
+    width: 300px;
+    margin: 1% auto;
+    font-size: 14pt;
+}
+
+.fancyTable td {
+    padding: 5px;
+    font-family: monospace;
+}
+
+.error {
+    font-size: 14pt;
+    font-family: monospace;
+    color: red;
+    text-align: center;
+}
+
+.tdCenter td,th {
+    text-align: center;
+    padding: 2px;
+}
