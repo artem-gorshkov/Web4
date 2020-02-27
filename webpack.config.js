@@ -1,13 +1,15 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require("webpack");
 
 module.exports = {
+    mode: "development",
     entry: {
         index: './src/main/js/index.jsx',
         main: './src/main/js/main.jsx'
     },
     output: {
-        path: path.resolve(__dirname, 'src/main/resources/static/js'),
+        path: path.resolve(__dirname, 'src/main/webapp/resources/static/js'),
         filename: '[name].js'
     },
     optimization: {

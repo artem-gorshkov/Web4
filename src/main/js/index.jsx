@@ -31,6 +31,6 @@ class LoginPage extends React.Component {
     }
 }
 
-ReactDom.render(<LoginPage/>, document.getElementById('root'), () => {
+ReactDom.render(<LoginPage/>, document.querySelector('#root'), () => {
     console.log("App created")
 });

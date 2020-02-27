@@ -25,7 +25,7 @@ public class RegistrationController {
     public String addUser(@RequestBody MyUser user) {
         MyUser userFromDb = repository.findByUsername(user.getUsername());
         if (userFromDb != null) {
-            return "index?exists";
+            return "/";
         }
         user.setPassword(user.getPassword());
         repository.save(user);

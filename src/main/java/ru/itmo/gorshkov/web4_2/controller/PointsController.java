@@ -51,7 +51,7 @@ public class PointsController {
             if (y > 0)
                 return 0;
             else {
-                if (y < -1 / 2 * x - r / 2)
+                if (y < -0.5 * x - r / 2)
                     return 0;
                 else
                     return 1;

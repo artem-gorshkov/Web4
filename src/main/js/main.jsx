@@ -11,4 +11,6 @@ ReactDom.render((
     <Provider store={store}>
         <App/>
     </Provider>
-), document.getElementById('root'));
+), document.querySelector('#root'),
+    () => {
+        console.log("App created")});

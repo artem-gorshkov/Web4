@@ -34,13 +34,13 @@
     color: cornflowerblue;
 }
 
-#body {
+body {
     background: url('../img/background.png') white;
     text-align: center;
     margin: 1% auto 0 auto;
 }
 
-.Time {
+#time {
     font-family: Chandas, serif;
     font-size: 26pt;
     color: #45688E;

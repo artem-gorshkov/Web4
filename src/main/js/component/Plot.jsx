@@ -36,7 +36,7 @@ export default class Plot extends React.Component {
 
         this.props.addPoint({'x': cordX, 'y': cordY, 'r':radius});
     }
-
+//Путина долой      
     paintPlot() {
         const blue = "#45688E";
         const red = "red";
