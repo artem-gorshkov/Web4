@@ -1,19 +1,20 @@
 import React from "react";
 import {connect} from 'react-redux';
 import mapDispatchToProps from '../actions.js';
+import { Switch, Route } from 'react-router-dom'
 import Header from "./Header.jsx";
-import Plot from "./Plot.jsx";
-import InputForm from "./InputForm.jsx";
-import Table from "./Table.jsx";
+import LoginPage from "./LoginPage.jsx";
+import MainPage from "./MainPage";
 
 class App extends React.Component {
 
     render() {
         return <div>
             <Header/>
-            <Plot {... this.props}/>
-            <InputForm {... this.props}/>
-            <Table {... this.props}/>
+            <Switch>
+                <Route exact path='/' component={LoginPage}/>
+                <Route path='/main' render={(props) => (<MainPage {...props}/>)}/>
+            </Switch>
         </div>
     }
 
@@ -21,8 +22,6 @@ class App extends React.Component {
         this.props.setPoints();
     }
 }
-
-
 
 function mapStateToProps(state) {
     return {

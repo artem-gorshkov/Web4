@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.itmo.gorshkov.web4_2.data.MyUser;
 import ru.itmo.gorshkov.web4_2.data.UserRepository;
 
-@Controller
+@RestController
 @RequestMapping("/registration")
 public class RegistrationController {
     private final UserRepository repository;
@@ -16,19 +16,14 @@ public class RegistrationController {
         this.repository = repository;
     }
 
-    @GetMapping
-    public String getPoints() {
-        return "redirect:/";
-    }
-
     @PostMapping
     public String addUser(@RequestBody MyUser user) {
         MyUser userFromDb = repository.findByUsername(user.getUsername());
         if (userFromDb != null) {
-            return "/";
+            return "error";
         }
         user.setPassword(user.getPassword());
         repository.save(user);
-        return "redirect:/";
+        return "success";
     }
 }
