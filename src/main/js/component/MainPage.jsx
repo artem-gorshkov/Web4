@@ -1,11 +1,15 @@
 import React from "react";
-import Plot from "./Plot.jsx";
-import InputForm from "./InputForm.jsx";
-import Table from "./Table.jsx";
+import Plot from "./mainPage/Plot.jsx";
+import InputForm from "./mainPage/InputForm.jsx";
+import Table from "./mainPage/Table.jsx";
 
 export default class MainPage extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        // this.props.setPoints();
     }
 
     render() {

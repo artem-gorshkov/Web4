@@ -5,38 +5,47 @@ export default class Plot extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
-        this.setColor = this.setColor.bind(this);
     }
 
     render() {
-        return <canvas id="canvas" onClick={this.handleClick}/>
+        return <div>
+            <canvas id="canvas" onClick={this.handleClick} width='500' height='500'/>
+            <div id='canvasError'></div>
+        </div>
     }
 
     componentDidMount() {
         this.paintPlot();
-        this.addDots(this.props.radius, this.props.points);
+        if (this.props.points.length !== 0)
+            this.addDots(this.props.radius, this.props.points);
     }
 
     componentDidUpdate() {
         this.paintPlot();
-        this.addDots(this.props.radius, this.props.points);
+        if (this.props.points.length !== 0)
+            this.addDots(this.props.radius, this.props.points);
     }
 
     handleClick(event) {
+        console.log("click");
+        console.log(this.props.points);
         const width = document.getElementById("canvas").getAttribute("width");
         const height = document.getElementById("canvas").getAttribute("height");
+
         const radius = this.props.radius;
+        if (radius == null) document.querySelector('#canvasError').innerHTML = 'Укажите радиус!';
+        else {
+            document.querySelector('#canvasError').innerHTML = '';
+            const x = event.pageX - (document.getElementById("canvas").getBoundingClientRect().left + pageXOffset);
+            const y = event.pageY - (document.getElementById("canvas").getBoundingClientRect().top + pageYOffset);
 
-        const x = event.pageX - (document.getElementById("canvas").getBoundingClientRect().left + pageXOffset);
-        const y = event.pageY - (document.getElementById("canvas").getBoundingClientRect().top + pageYOffset);
+            const cordX = (x - width / 2) * Number(radius) / Math.round(width / 3);
+            const cordY = (height / 2 - y) * Number(radius) / Math.round(height / 3);
 
-        const cordX = (x - width / 2) * Number(radius) / Math.round(width / 3);
-        const cordY = (height / 2 - y) * Number(radius) / Math.round(height / 3);
-
-
-        this.props.addPoint({'x': cordX, 'y': cordY, 'r':radius});
+            this.props.addPoint({'x': cordX, 'y': cordY, 'r': radius})
+        }
     }
-//Путина долой      
+
     paintPlot() {
         const blue = "#45688E";
         const red = "red";
@@ -48,7 +57,7 @@ export default class Plot extends React.Component {
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, Number(width), Number(height)); //do white canvas
         ctx.fillStyle = blue;
-        ctx.fillRect(width / 2, height / 2, 4 / 6 * width, 5 / 6 * height);
+        ctx.fillRect(width / 2, height / 2, 1 / 6 * width, 2 / 6 * height);
         ctx.beginPath();
         ctx.arc(width / 2, height / 2, 1 / 6 * height, 3 / 2 * Math.PI, 2 * Math.PI);
         ctx.moveTo(width / 2, height / 2);
@@ -107,46 +116,15 @@ export default class Plot extends React.Component {
         const ctx = document.getElementById("canvas").getContext("2d");
         const width = document.getElementById("canvas").getAttribute("width");
         const height = document.getElementById("canvas").getAttribute("height");
-
-        let rad = height / 40;
-        let rad2 = height / 80;
+        const blue = "#45688E";
+        const red = "red";
         Array.prototype.forEach.call(history, function (point) {
             let x = width / 2 + point['x'] * Math.round(width / 3) / Number(r);
             let y = height / 2 - point['y'] * Math.round(height / 3) / Number(r);
-            ctx.fillStyle = this.setColor(point, r);
+            ctx.fillStyle = point.result === 1 ? red : blue;
             ctx.beginPath();
             ctx.arc(x, y, 3, 0, 2 * Math.PI);
             ctx.fill();
         });
     }
-
-    setColor(point, r) {
-        const blue = "#45688E";
-        const red = "red";
-        const x = point['x'];
-        const y = point['y'];
-        if (x < 0) {
-            if (y > 0)
-                return blue;
-            else {
-                if (y < -1 / 2 * x - r / 2)
-                    return blue;
-                else
-                    return red;
-            }
-        } else {
-            if (y > 0) {
-                if (Math.pow(x, 2) + Math.pow(y, 2) > Math.pow(r / 2, 2))
-                    return blue;
-                else
-                    return red;
-            } else {
-                if (x > r / 2 && y < -r)
-                    return blue;
-                else
-                    return red;
-            }
-        }
-    }
-
 }

@@ -4,7 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {createStore} from "redux";
 import reducer from "./reducer.js";
 import {Provider} from "react-redux";
-import App from "component/App.jsx";
+import App from "./App.jsx";
 
 
 const store = createStore(reducer);
@@ -14,6 +14,4 @@ ReactDom.render((
         <BrowserRouter>
             <App/>
         </BrowserRouter>
-    </Provider>), document.querySelector('#root'), () => {
-    console.log("App created")
-});
+    </Provider>), document.querySelector('#root'));

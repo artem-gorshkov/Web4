@@ -11,22 +11,47 @@ export default class LoginForm extends React.Component {
         this.state = {
             username: '',
             password: '',
-            passwordConfirm: '',
             message: ''
         };
     }
 
     submit(event) {
+        event.preventDefault();
+        if (!this.validation(this.state.username, this.state.password)) return false;
+        const link = '/main'; //URL of main page
+        this.sendUser("/api/login")
+            .then(response => {
+            if (!response.ok)
+                throw Error(response.statusText);
+            else {
+                console.log("это ответ: ");
+                console.log(response);
+                this.props.history.push(link);
+            }
+        }).catch(error => console.log(error));
 
-        if (this.state.username === '' || this.state.password === '') {
+    }
+
+    sendUser(url) {
+        document.forms[1].reset();
+        const user = {'username': this.state.username, 'password': this.state.password};
+        console.log(user);
+        return fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+    }
+
+    validation(username, password) {
+        if (username === '' || password === '') {
             this.updateWithMessage('Заполните все необходимые поля.');
-            event.preventDefault();
             return false;
         }
-
-        if (this.state.username < 6 || this.state.password < 6) {
+        else if (username.length < 6 || password.length < 6) {
             this.updateWithMessage('Длина логина и пароля должна быть больше 6 символов');
-            event.preventDefault();
             return false;
         }
         return true;
@@ -51,9 +76,8 @@ export default class LoginForm extends React.Component {
     render() {
         return (
             <div>
-                {this.state.message != null &&
-                <div className="message">{this.state.message}</div>}
-                <form action="/" method="post" onSubmit={this.submit}>
+                <div className="message">{this.state.message}</div>
+                <form method="post" onSubmit={this.submit}>
                     <Input id='username' label='Логин:' inputType='text'
                            value={this.state.username} onChange={this.handleChange}/>
                     <Input id='password' label='Пароль:' inputType='password'

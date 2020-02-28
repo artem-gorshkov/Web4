@@ -7,7 +7,7 @@ module.exports = {
     entry: './src/main/js/index.jsx',
     output: {
         path: path.resolve(__dirname, 'src/main/webapp/resources/static/js'),
-        filename: '[name].js'
+        filename: 'index.js'
     },
     optimization: {
         minimizer: [

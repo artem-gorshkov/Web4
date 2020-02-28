@@ -1,6 +1,6 @@
 import React from "react";
-import LoginForm from "./LoginForm.jsx";
-import RegistrationForm from "./RegistrationForm.jsx";
+import LoginForm from "./loginPage/LoginForm.jsx";
+import RegistrationForm from "./loginPage/RegistrationForm.jsx";
 
 export default class LoginPage extends React.Component {
 
@@ -21,9 +21,9 @@ export default class LoginPage extends React.Component {
             <div>
                 <div id="time"/>
                 Войти:
-                <LoginForm/>
+                <LoginForm {...this.props}/>
                 Регистрация:
-                <RegistrationForm/>
+                <RegistrationForm {...this.props}/>
             </div>
         )
 

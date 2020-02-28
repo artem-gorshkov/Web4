@@ -7,27 +7,37 @@ export default class RegistrationForm extends LoginForm {
     constructor(props) {
         super(props);
         this.state = {
+            username: '',
+            password: '',
             passwordConfirm: '',
+            message: ''
         };
     }
 
     submit(event) {
+        event.preventDefault();
+        if (!this.validation(this.state.username, this.state.password, this.state.passwordConfirm)) return false;
+        this.sendUser("/api/registration").then(response => {
+            if (response.ok) {
+                console.log(response);
+                this.updateWithMessage("Пользователь успешно добавлен");
+            }
+            else if (response.status === 400) {
+                this.updateWithMessage("Пользователь уже существует");
+            } else throw Error(response.statusText);
+        }).catch(error => console.log(error));
+    }
 
-        if (this.state.username === '' || this.state.password === '') {
+
+    validation(username, password, passwordConfirm) {
+        if (username === '' || password === '') {
             this.updateWithMessage('Заполните все необходимые поля.');
-            event.preventDefault();
             return false;
-        }
-
-        if (this.state.username < 6 || this.state.password < 6) {
+        } else if (username.length < 6 || password.length < 6) {
             this.updateWithMessage('Длина логина и пароля должна быть больше 6 символов');
-            event.preventDefault();
             return false;
-        }
-
-        if (this.state.password !== this.state.passwordConfirm) {
+        } else if (password !== passwordConfirm) {
             this.updateWithMessage('Пароли различаются.');
-            event.preventDefault();
             return false;
         }
         return true;
@@ -35,7 +45,7 @@ export default class RegistrationForm extends LoginForm {
 
     updateWithMessage(msg) {
         this.setState({
-            username: this.state.username,
+            username: '',
             password: '',
             passwordConfirm: '',
             message: msg
@@ -43,11 +53,10 @@ export default class RegistrationForm extends LoginForm {
     }
 
     render() {
-        const registration = "/registration";
         return (
             <div>
                 <div className="message">{this.state.message}</div>
-                <form action={registration} method="post" onSubmit={this.submit}>
+                <form method="post" onSubmit={this.submit}>
                     <Input id='username' label='Логин:' inputType='text'
                            value={this.state.username} onChange={this.handleChange}/>
                     <Input id='password' label='Пароль:' inputType='password'

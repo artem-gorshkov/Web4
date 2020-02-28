@@ -11,7 +11,8 @@ export default class Table extends React.Component {
         if (points.length !== 0) {
             isEmpty = false;
         }
-        const table = <table className="fancyTable">
+        const table = <table className="Table">
+            <tbody>
             <tr>
                 <th>
                     x
@@ -27,8 +28,8 @@ export default class Table extends React.Component {
                 </th>
             </tr>
             {points.map(
-                (point) =>
-                    <tr>
+                (point, i) =>
+                    <tr key={i}>
                         <td>
                             {point.x}
                         </td>
@@ -43,6 +44,7 @@ export default class Table extends React.Component {
                         </td>
                     </tr>
             )}
+            </tbody>
         </table>;
         return (<div>{!isEmpty && table}</div>);
     }

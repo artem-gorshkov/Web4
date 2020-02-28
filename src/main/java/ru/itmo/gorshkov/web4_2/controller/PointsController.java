@@ -15,7 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/points")
+@RequestMapping("/api/points")
 public class PointsController {
     private final UserRepository repository;
 

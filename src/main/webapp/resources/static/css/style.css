@@ -37,7 +37,12 @@
 body {
     background: url('../img/background.png') white;
     text-align: center;
-    margin: 1% auto 0 auto;
+    font-family: monospace;
+    font-size: 14pt;
+}
+
+body * {
+    margin: 5px auto 5px auto;
 }
 
 #time {
@@ -59,10 +64,6 @@ body {
     text-align: center;
     font-family: monospace;
     font-size: 14pt;
-}
-
-.History {
-    display: none;
 }
 
 .fancyTable {

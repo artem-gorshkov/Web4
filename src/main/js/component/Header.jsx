@@ -5,7 +5,7 @@ export default class Header extends React.Component {
         return (
             <div>
                 <div className="Header bold">
-                    <h1>Лабораторная работа №3 по <span className="Pip"> Веб-программированию</span></h1>
+                    <h1>Лабораторная работа №4 по <span className="Pip"> Веб-программированию</span></h1>
                     <h2>Вариант №465597</h2>
                     <h3>Выполнил: Горшков Артем Владимирович</h3>
                     <h4>Группа: P3211</h4>
