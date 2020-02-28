@@ -74,7 +74,7 @@ export default class LoginForm extends React.Component {
         return (
             <div>
                 <div className="message">{this.state.message}</div>
-                <form method="post" onSubmit={this.submit}>
+                <form  method="post" onSubmit={this.submit}>
                     <Input id='username' label='Логин:' inputType='text'
                            value={this.state.username} onChange={this.handleChange}/>
                     <Input id='password' label='Пароль:' inputType='password'

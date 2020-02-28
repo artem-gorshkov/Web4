@@ -2,6 +2,7 @@ package ru.itmo.gorshkov.web4_2.data;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,12 +18,15 @@ public class Point {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(precision = 21, scale = 20)
     @DecimalMin("-7.5")
     @DecimalMax("7.5")
     private BigDecimal x;
+    @Column(precision = 21, scale = 20)
     @DecimalMin("-7.5")
     @DecimalMax("7.5")
     private BigDecimal y;
+    @Column(precision = 21, scale = 20)
     @DecimalMin("-5")
     @DecimalMax("3")
     private BigDecimal r;

@@ -16,7 +16,7 @@ public class MyUser {
     private String username;
     @Size(min = 6, message = "Не меньше 6 знаков")
     private String password;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn
     private List<Point> points;
 

@@ -23,11 +23,9 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        // points: state.get("points"),
-        // radius: state.get("radius")
-        points: state.points,
-        radius: state.radius,
-        error: state.error
+        points: state.get("points"),
+        radius: state.get("radius"),
+        error: state.get("error")
     }
 }
 

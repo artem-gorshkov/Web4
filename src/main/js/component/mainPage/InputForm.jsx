@@ -16,27 +16,44 @@ export default class InputForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const point = {
-            x: event.target.x,
-            y: event.target.y,
-            r: event.target.r
+            x: event.target.x.value,
+            y: event.target.y.value,
+            r: event.target.r.value
         };
-        console.log("send");
-        console.log(point);
-        this.props.addPoint(point);
-        event.target.reset();
+        if (point.x === '' || point.x === '-' ||
+            point.y === '' || point.y === '-' ||
+            point.r === '' || point.r === '-')
+            this.props.setError('Укажите все значения!');
+        else {
+            console.log("send");
+            console.log(point);
+            this.props.addPoint(point);
+            this.setState({
+                x: '',
+                y: '',
+            })
+        }
     }
 
     handleChange({value}, min, max, key) {
         value = value.replace(',', '.');
-        if (isNaN(value)) {
+        if (value === '-')
+            this.setState({[key]: value});
+        else if (isNaN(value)) {
             this.props.setError('Значение должно быть числом!');
-            this.setState({key: ''});
+            this.setState({[key]: ''});
+            if (key === 'r') {
+                this.props.changeRadius(null);
+            }
         } else if (!(min < Number(value.substr(0, 10)) && Number(value.substr(0, 10)) < max)) {
             this.props.setError(`Число должно быть в диапазоне (${min};${max})`);
-            this.setState({key: ''});
+            this.setState({[key]: ''});
+            if (key === 'r') {
+                this.props.changeRadius(null);
+            }
         } else {
             this.props.setError('');
-            this.setState({key: value});
+            this.setState({[key]: value});
             if (key === 'r') {
                 this.props.changeRadius(value);
             }
@@ -85,6 +102,7 @@ export default class InputForm extends React.Component {
                 </tr>
                 </tbody>
             </table>
+            <button type='submit'>Отправить</button>
         </form>
     }
 }

@@ -12,14 +12,16 @@ export default class Plot extends React.Component {
     }
 
     componentDidMount() {
+        console.log("plotdidmount");
         this.paintPlot();
-        if (this.props.points.length !== 0)
+        if (this.props.points.length !== 0 && !isNaN(this.props.radius))
             this.addDots(this.props.radius, this.props.points);
     }
 
     componentDidUpdate() {
+        console.log("plotdidUpdate");
         this.paintPlot();
-        if (this.props.points.length !== 0)
+        if (this.props.points.length !== 0 && !isNaN(this.props.radius))
             this.addDots(this.props.radius, this.props.points);
     }
 
@@ -40,7 +42,10 @@ export default class Plot extends React.Component {
             const cordX = (x - width / 2) * Number(radius) / Math.round(width / 3);
             const cordY = (height / 2 - y) * Number(radius) / Math.round(height / 3);
 
-            this.props.addPoint({'x': cordX, 'y': cordY, 'r': radius})
+            this.props.addPoint({'x': cordX, 'y': cordY, 'r': radius}).then(() => {
+                this.paintPlot();
+                this.addDots(this.props.radius, this.props.points);
+            });
         }
     }
 
@@ -119,10 +124,38 @@ export default class Plot extends React.Component {
         Array.prototype.forEach.call(history, function (point) {
             let x = width / 2 + point['x'] * Math.round(width / 3) / Number(r);
             let y = height / 2 - point['y'] * Math.round(height / 3) / Number(r);
-            ctx.fillStyle = point.result === 1 ? red : blue;
+            ctx.fillStyle = setColor(point, r);
             ctx.beginPath();
             ctx.arc(x, y, 3, 0, 2 * Math.PI);
             ctx.fill();
         });
+        function setColor(point, r) {
+            const blue = "#45688E";
+            const red = "red";
+            const x = point['x'];
+            const y = point['y'];
+            if (x < 0) {
+                if (y > 0)
+                    return blue;
+                else {
+                    if (y < -1 / 2 * x - r / 2)
+                        return blue;
+                    else
+                        return red;
+                }
+            } else {
+                if (y > 0) {
+                    if (Math.pow(x, 2) + Math.pow(y, 2) > Math.pow(r / 2, 2))
+                        return blue;
+                    else
+                        return red;
+                } else {
+                    if (x > r / 2 && y < -r)
+                        return blue;
+                    else
+                        return red;
+                }
+            }
+        }
     }
 }

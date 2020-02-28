@@ -7,24 +7,24 @@ const changeRadius = function (radius) {
     }
 };
 
-const addPoint = function (point) {
+const addPoint = async function (point) {
     console.log("addPoint");
     console.log(point);
     const url = "/api/points";
-    const data = fetch(url, {
+    let data = {};
+    let response = await fetch(url, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(point)
-    })
-        .then(response => {
-            if (!response.ok)
-                throw Error(response.statusText);
-            else
-                return response.json();
-        })
-        .catch(error => console.log(error));
+    });
+    if (response.ok) {
+        data = await response.json();
+    } else {
+        console.log("Ошибка HTTP: " + response.status);
+        throw Error(response.statusText);
+    }
     console.log("AddAction");
     console.log(data);
     return {
@@ -33,10 +33,16 @@ const addPoint = function (point) {
     }
 };
 
-const setPoints = function () {
+const setPoints = async function () {
     console.log("setPoints");
     const url = "/api/points";
-    const data = fetch(url).then(response => response.json());
+    let data = [];
+    let response = await fetch(url);
+    if (response.ok) {
+         data = await response.json();
+    } else {
+        console.log("Ошибка HTTP: " + response.status);
+    }
     return {
         type: "SET_POINTS",
         data

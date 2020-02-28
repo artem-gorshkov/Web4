@@ -1,19 +1,23 @@
 package ru.itmo.gorshkov.web4_2.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.itmo.gorshkov.web4_2.data.Point;
 import ru.itmo.gorshkov.web4_2.data.MyUser;
+import ru.itmo.gorshkov.web4_2.data.Point;
+import ru.itmo.gorshkov.web4_2.data.PointDTO;
 import ru.itmo.gorshkov.web4_2.data.UserRepository;
 import ru.itmo.gorshkov.web4_2.util.BigDecimalToDouble;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/points")
 public class PointsController {
@@ -25,8 +29,8 @@ public class PointsController {
     }
 
     @GetMapping
-    public List<Point> getPoints(Principal principal) {
-        MyUser user = repository.findByUsername(principal.getName());
+    public List<Point> getPoints(/*Principal principal*/) {
+        MyUser user = repository.findByUsername("123456"/*principal.getName()*/);
         return user.getPoints();
     }
 
@@ -39,11 +43,17 @@ public class PointsController {
 //    }
 
     @PostMapping
-    public Point addPoint(@Valid Point point) {
+    public PointDTO addPoint(@RequestBody PointDTO pointDTO) {
+        @Valid
+        Point point = pointFromDTO(pointDTO);
         MyUser user = repository.findByUsername("123456");
-        point.setResult(checkArea(point));
+        int result = checkArea(point);
+        point.setResult(result);
+        pointDTO.setResult(result);
         user.addPoint(point);
-        return point;
+        repository.save(user);
+        log.info("POST Point: " + point);
+        return pointDTO;
     }
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<String> handleException(Exception e) {
@@ -76,5 +86,13 @@ public class PointsController {
                     return 1;
             }
         }
+    }
+
+    public static Point pointFromDTO(PointDTO pointDTO) {
+        Point point = new Point();
+        point.setX(new BigDecimal(pointDTO.getX()));
+        point.setY(new BigDecimal(pointDTO.getY()));
+        point.setR(new BigDecimal(pointDTO.getR()));
+        return point;
     }
 }

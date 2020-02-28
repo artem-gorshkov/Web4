@@ -7,7 +7,8 @@ export default class Table extends React.Component {
 
     render() {
         let isEmpty = true;
-        const points = this.props.points;
+        const points =  this.props.points.slice(0, this.props.points.length);
+        points.reverse();
         if (points.length !== 0) {
             isEmpty = false;
         }

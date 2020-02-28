@@ -4,7 +4,7 @@ const webpack = require("webpack");
 
 module.exports = {
     mode: "development",
-    entry: './src/main/js/index.jsx',
+    entry: ["@babel/polyfill", './src/main/js/index.jsx'],
     output: {
         path: path.resolve(__dirname, 'src/main/webapp/resources/static/js'),
         filename: 'index.js'

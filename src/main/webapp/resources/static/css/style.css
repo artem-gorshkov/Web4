@@ -89,3 +89,7 @@ body * {
     text-align: center;
     padding: 2px;
 }
+
+#points {
+    display: none;
+}
