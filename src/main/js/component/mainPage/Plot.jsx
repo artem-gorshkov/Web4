@@ -8,10 +8,7 @@ export default class Plot extends React.Component {
     }
 
     render() {
-        return <div>
-            <canvas id="canvas" onClick={this.handleClick} width='500' height='500'/>
-            <div id='canvasError'></div>
-        </div>
+        return <canvas id="canvas" onClick={this.handleClick} width='500' height='500'/>
     }
 
     componentDidMount() {
@@ -29,13 +26,14 @@ export default class Plot extends React.Component {
     handleClick(event) {
         console.log("click");
         console.log(this.props.points);
+        console.log(this.props.radius);
         const width = document.getElementById("canvas").getAttribute("width");
         const height = document.getElementById("canvas").getAttribute("height");
 
         const radius = this.props.radius;
-        if (radius == null) document.querySelector('#canvasError').innerHTML = 'Укажите радиус!';
+        if (radius == null) this.props.setError('Укажите радиус!');
         else {
-            document.querySelector('#canvasError').innerHTML = '';
+            this.props.setError('');
             const x = event.pageX - (document.getElementById("canvas").getBoundingClientRect().left + pageXOffset);
             const y = event.pageY - (document.getElementById("canvas").getBoundingClientRect().top + pageYOffset);
 

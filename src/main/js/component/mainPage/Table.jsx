@@ -40,7 +40,7 @@ export default class Table extends React.Component {
                             {point.r}
                         </td>
                         <td>
-                            {point.result}
+                            {point.result===1?"В зоне" : "Не в зоне"}
                         </td>
                     </tr>
             )}

@@ -1,4 +1,6 @@
 const changeRadius = function (radius) {
+    console.log("changeRadius");
+    console.log(radius);
     return {
         type: "CHANGE_RADIUS",
         radius
@@ -6,6 +8,8 @@ const changeRadius = function (radius) {
 };
 
 const addPoint = function (point) {
+    console.log("addPoint");
+    console.log(point);
     const url = "/api/points";
     const data = fetch(url, {
         method: "POST",
@@ -39,4 +43,13 @@ const setPoints = function () {
     }
 };
 
-export default {changeRadius, addPoint, setPoints};
+const setError = function (error) {
+    console.log('setError');
+    console.log(error);
+    return {
+        type: "SET_ERROR",
+        error
+    }
+};
+
+export default {changeRadius, addPoint, setPoints, setError};

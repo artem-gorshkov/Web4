@@ -13,11 +13,11 @@ export default class MainPage extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <Plot {...this.props}/>
-                <InputForm {...this.props}/>
-                <Table {...this.props}/>)
-            </div>)
+        return <div>
+            <Plot {...this.props}/>
+            <div className="error">{this.props.error}</div>
+            <InputForm {...this.props}/>
+            <Table {...this.props}/>)
+        </div>
     }
 }

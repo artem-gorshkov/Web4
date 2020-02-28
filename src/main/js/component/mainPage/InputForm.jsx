@@ -5,6 +5,7 @@ export default class InputForm extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             x: '',
             y: '',
@@ -15,12 +16,33 @@ export default class InputForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const point = {
-            'x': event.target.x,
-            'y': event.target.y,
-            'r': event.target.r
+            x: event.target.x,
+            y: event.target.y,
+            r: event.target.r
         };
+        console.log("send");
+        console.log(point);
         this.props.addPoint(point);
         event.target.reset();
+    }
+
+    handleChange({value}, min, max, key) {
+        value = value.replace(',', '.');
+        if (isNaN(value)) {
+            this.props.setError('Значение должно быть числом!');
+            this.setState({key: ''});
+        } else if (!(min < Number(value.substr(0, 10)) && Number(value.substr(0, 10)) < max)) {
+            this.props.setError(`Число должно быть в диапазоне (${min};${max})`);
+            this.setState({key: ''});
+        } else {
+            this.props.setError('');
+            this.setState({key: value});
+            if (key === 'r') {
+                this.props.changeRadius(value);
+            }
+        }
+        console.log("formState");
+        console.log(this.state);
     }
 
     render() {
@@ -33,9 +55,10 @@ export default class InputForm extends React.Component {
                         <label htmlFor='x' className='label'>X:</label>
                     </td>
                     <td>
-                        <TextInput id='x' value={this.state.x} onUpdate={(o) => {
-                            this.setState({'x': o.value})
-                        }}/>
+                        <TextInput id='x' value={this.state.x}
+                                   onUpdate={(o) => {
+                                       this.handleChange(o, -5, 3, 'x')
+                                   }}/>
                     </td>
                 </tr>
                 <tr>
@@ -43,9 +66,10 @@ export default class InputForm extends React.Component {
                         <label htmlFor='y' className='label'>Y:</label>
                     </td>
                     <td>
-                        <TextInput id='y' value={this.state.y} onUpdate={(o) => {
-                            this.setState({'y': o.value})
-                        }}/>
+                        <TextInput id='y' value={this.state.y}
+                                   onUpdate={(o) => {
+                                       this.handleChange(o, -3, 5, 'y')
+                                   }}/>
                     </td>
                 </tr>
                 <tr>
@@ -53,12 +77,10 @@ export default class InputForm extends React.Component {
                         <label htmlFor='r' className='label'>R:</label>
                     </td>
                     <td>
-                        <TextInput id='r' value={this.state.r} onUpdate={(o) => {
-                            console.log("Radius");
-                            console.log(this.props.points);
-                            this.setState({'r': o.value});
-                            this.props.changeRadius(o.value);
-                        }}/>
+                        <TextInput id='r' value={this.state.r}
+                                   onUpdate={(o) => {
+                                       this.handleChange(o, -5, 3, 'r')
+                                   }}/>
                     </td>
                 </tr>
                 </tbody>

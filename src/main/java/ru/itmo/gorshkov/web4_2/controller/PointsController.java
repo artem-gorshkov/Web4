@@ -30,14 +30,21 @@ public class PointsController {
         return user.getPoints();
     }
 
+//    @PostMapping
+//    public Point addPoint(@Valid Point point, Principal principal) {
+//        MyUser user = repository.findByUsername(principal.getName());
+//        point.setResult(checkArea(point));
+//        user.addPoint(point);
+//        return point;
+//    }
+
     @PostMapping
-    public Point addPoint(@Valid Point point, Principal principal) {
-        MyUser user = repository.findByUsername(principal.getName());
+    public Point addPoint(@Valid Point point) {
+        MyUser user = repository.findByUsername("123456");
         point.setResult(checkArea(point));
         user.addPoint(point);
         return point;
     }
-
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<String> handleException(Exception e) {
         return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);

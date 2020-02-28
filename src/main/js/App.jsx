@@ -26,7 +26,8 @@ function mapStateToProps(state) {
         // points: state.get("points"),
         // radius: state.get("radius")
         points: state.points,
-        radius: state.radius
+        radius: state.radius,
+        error: state.error
     }
 }
 

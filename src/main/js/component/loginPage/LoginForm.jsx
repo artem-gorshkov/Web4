@@ -21,15 +21,13 @@ export default class LoginForm extends React.Component {
         const link = '/main'; //URL of main page
         this.sendUser("/api/login")
             .then(response => {
-            if (!response.ok)
-                throw Error(response.statusText);
-            else {
-                console.log("это ответ: ");
-                console.log(response);
-                this.props.history.push(link);
-            }
-        }).catch(error => console.log(error));
-
+                if (response.ok) {
+                    console.log(response);
+                    this.props.history.push(link);
+                } else if (response.status === 400) {
+                    this.updateWithMessage("Пользователь не найден");
+                } else throw Error(response.statusText);
+            }).catch(error => console.log(error));
     }
 
     sendUser(url) {
@@ -49,8 +47,7 @@ export default class LoginForm extends React.Component {
         if (username === '' || password === '') {
             this.updateWithMessage('Заполните все необходимые поля.');
             return false;
-        }
-        else if (username.length < 6 || password.length < 6) {
+        } else if (username.length < 6 || password.length < 6) {
             this.updateWithMessage('Длина логина и пароля должна быть больше 6 символов');
             return false;
         }
