@@ -42,7 +42,7 @@ export default class Plot extends React.Component {
             const cordX = (x - width / 2) * Number(radius) / Math.round(width / 3);
             const cordY = (height / 2 - y) * Number(radius) / Math.round(height / 3);
 
-            this.props.addPoint({'x': cordX, 'y': cordY, 'r': radius}).then(() => {
+            this.props.addPoint({'x': cordX, 'y': cordY, 'r': radius}, this.props.token).then(() => {
                 this.paintPlot();
                 this.addDots(this.props.radius, this.props.points);
             });

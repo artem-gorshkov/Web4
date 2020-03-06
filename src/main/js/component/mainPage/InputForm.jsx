@@ -27,7 +27,7 @@ export default class InputForm extends React.Component {
         else {
             console.log("send");
             console.log(point);
-            this.props.addPoint(point);
+            this.props.addPoint(point, this.props.token);
             this.setState({
                 x: '',
                 y: '',

@@ -1,3 +1,5 @@
+import {Base64} from "js-base64";
+
 const changeRadius = function (radius) {
     console.log("changeRadius");
     console.log(radius);
@@ -7,16 +9,16 @@ const changeRadius = function (radius) {
     }
 };
 
-const addPoint = async function (point) {
+const addPoint = async function (point, token) {
     console.log("addPoint");
     console.log(point);
     const url = "/api/points";
     let data = {};
+    let headers = new Headers();
+    headers.set('Authorization', 'Basic ' + token);
     let response = await fetch(url, {
         method: "POST",
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
+        headers: headers,
         body: JSON.stringify(point)
     });
     if (response.ok) {
@@ -33,11 +35,15 @@ const addPoint = async function (point) {
     }
 };
 
-const setPoints = async function () {
+const setPoints = async function (token) {
     console.log("setPoints");
     const url = "/api/points";
     let data = [];
-    let response = await fetch(url);
+    let headers = new Headers();
+    headers.set('Authorization', 'Basic ' + token);
+    let response = await fetch(url, {
+        headers: headers
+    });
     if (response.ok) {
          data = await response.json();
     } else {
@@ -58,4 +64,12 @@ const setError = function (error) {
     }
 };
 
-export default {changeRadius, addPoint, setPoints, setError};
+const setToken = function (token) {
+    console.log('setToken');
+    console.log(token);
+    return {
+        type: "SET_TOKEN",
+        token
+    }};
+
+export default {changeRadius, addPoint, setPoints, setError, setToken};

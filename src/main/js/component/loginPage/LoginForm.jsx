@@ -1,5 +1,6 @@
 import React from "react";
 import Input from "./Input.jsx";
+import { Base64 } from 'js-base64';
 
 export default class LoginForm extends React.Component {
 
@@ -23,6 +24,7 @@ export default class LoginForm extends React.Component {
             .then(response => {
                 if (response.ok) {
                     console.log(response);
+                    this.props.setToken(response.text());
                     this.props.history.push(link);
                 } else if (response.status === 400) {
                     this.updateWithMessage("Пользователь не найден");
@@ -32,14 +34,11 @@ export default class LoginForm extends React.Component {
 
     sendUser(url) {
         document.forms[1].reset();
-        const user = {'username': this.state.username, 'password': this.state.password};
-        console.log(user);
+        let headers = new Headers();
+        headers.set('Authorization', 'Basic ' + Base64.encode(this.state.username + ":" + this.state.password));
         return fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
+            method: "GET",
+            headers: headers
         })
     }
 

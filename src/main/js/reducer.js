@@ -1,6 +1,6 @@
 import {Map} from 'immutable';
 
-const initialState = Map({points: [], radius: null, error: ''});
+const initialState = Map({points: [], radius: null, error: '', token:''});
 
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -20,6 +20,9 @@ export default function (state = initialState, action) {
             return state.set('points', action.data);
         case "SET_ERROR":
             return state.set('error', action.error);
+        case "SET_TOKEN":
+            return state.set('token', action.token);
+
     }
     return state;
 }

@@ -29,24 +29,16 @@ public class PointsController {
     }
 
     @GetMapping
-    public List<Point> getPoints(/*Principal principal*/) {
-        MyUser user = repository.findByUsername("123456"/*principal.getName()*/);
+    public List<Point> getPoints(Principal principal) {
+        MyUser user = repository.findByUsername(principal.getName());
         return user.getPoints();
     }
 
-//    @PostMapping
-//    public Point addPoint(@Valid Point point, Principal principal) {
-//        MyUser user = repository.findByUsername(principal.getName());
-//        point.setResult(checkArea(point));
-//        user.addPoint(point);
-//        return point;
-//    }
-
     @PostMapping
-    public PointDTO addPoint(@RequestBody PointDTO pointDTO) {
+    public PointDTO addPoint(@RequestBody PointDTO pointDTO, Principal principal) {
         @Valid
         Point point = pointFromDTO(pointDTO);
-        MyUser user = repository.findByUsername("123456");
+        MyUser user = repository.findByUsername(principal.getName());
         int result = checkArea(point);
         point.setResult(result);
         pointDTO.setResult(result);

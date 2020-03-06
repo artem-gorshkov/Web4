@@ -14,7 +14,7 @@ class App extends React.Component {
         return <div>
             <Header/>
             <Switch>
-                <Route exact path='/' component={LoginPage}/>
+                <Route exact path='/' render={(props) => (<LoginPage {... this.props}/>)}/>
                 <Route path='/main' render={(props) => (<MainPage {... this.props} />)}/>
             </Switch>
         </div>
@@ -25,7 +25,8 @@ function mapStateToProps(state) {
     return {
         points: state.get("points"),
         radius: state.get("radius"),
-        error: state.get("error")
+        error: state.get("error"),
+        token: state.get("token")
     }
 }
 

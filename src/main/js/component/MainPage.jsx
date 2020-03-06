@@ -9,7 +9,7 @@ export default class MainPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.setPoints();
+        this.props.setPoints(this.props.token);
     }
 
     render() {
