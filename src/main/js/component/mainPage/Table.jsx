@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from 'react-redux';
 
 export default class Table extends React.Component {
     constructor(props) {
@@ -7,11 +8,13 @@ export default class Table extends React.Component {
 
     render() {
         let isEmpty = true;
-        const points = this.props.points;
+        const points =  this.props.points.slice(0, this.props.points.length);
+        points.reverse();
         if (points.length !== 0) {
             isEmpty = false;
         }
-        const table = <table className="fancyTable">
+        const table = <table className="Table">
+            <tbody>
             <tr>
                 <th>
                     x
@@ -27,8 +30,8 @@ export default class Table extends React.Component {
                 </th>
             </tr>
             {points.map(
-                (point) =>
-                    <tr>
+                (point, i) =>
+                    <tr key={i}>
                         <td>
                             {point.x}
                         </td>
@@ -39,10 +42,11 @@ export default class Table extends React.Component {
                             {point.r}
                         </td>
                         <td>
-                            {point.result}
+                            {point.result===1?"В зоне" : "Не в зоне"}
                         </td>
                     </tr>
             )}
+            </tbody>
         </table>;
         return (<div>{!isEmpty && table}</div>);
     }

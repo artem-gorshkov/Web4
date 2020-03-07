@@ -1,6 +1,7 @@
-package ru.itmo.gorshkov.web4_2.data;
+package ru.itmo.gorshkov.web4.data;
 
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.*;
 
+@Data
 @Entity
 public class MyUser implements UserDetails {
 
@@ -20,6 +22,7 @@ public class MyUser implements UserDetails {
     private String username;
     @Size(min = 6, message = "Не меньше 6 знаков")
     private String password;
+    private String token;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn
     private List<Point> points;
@@ -28,30 +31,15 @@ public class MyUser implements UserDetails {
 
     {
         roles.add(() -> "ROLE_USER");
-//        points = new ArrayList<>();
     }
 
     public MyUser() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override
     public String getUsername() {
         return username;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,18 +49,6 @@ public class MyUser implements UserDetails {
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = ENCODER.encode(password);
-    }
-
-    public List<Point> getPoints() {
-        return points;
-    }
-
-    public void setPoints(List<Point> points) {
-        this.points = points;
     }
 
     public void addPoint(Point point) {

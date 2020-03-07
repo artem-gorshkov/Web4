@@ -20,13 +20,6 @@
     </properties>
 
     <dependencies>
-<!--        убрать на проде-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -88,11 +81,9 @@
             <artifactId>orai18n</artifactId>
             <version>12.1.0.2.0</version>
         </dependency>
-
     </dependencies>
 
     <build>
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

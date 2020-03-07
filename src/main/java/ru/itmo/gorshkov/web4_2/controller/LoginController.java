@@ -12,12 +12,12 @@ import java.util.Base64;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/registration")
-public class RegistrationController {
+@RequestMapping("/api/login")
+public class LoginController {
     private final UserRepository repository;
 
     @Autowired
-    public RegistrationController(UserRepository repository) {
+    public LoginController(UserRepository repository) {
         this.repository = repository;
     }
 
@@ -28,14 +28,10 @@ public class RegistrationController {
         String decodedString = new String(decodedBytes);
         String username = decodedString.substring(0, decodedString.indexOf(':'));
         String password = decodedString.substring(decodedString.indexOf(':') + 1);
-        log.info("Registration username: " + username);
-        log.info("Registration password: " + password);
+        log.info("Login username: " + username);
+        log.info("Login password: " + password);
         MyUser user = repository.findByUsername(username);
-        if (user == null) {
-            MyUser newUser = new MyUser();
-            newUser.setUsername(username);
-            newUser.setPassword(password);
-            repository.save(newUser);
+        if (user != null && user.getPassword().equals(MyUser.ENCODER.encode(password))) {
             return new ResponseEntity(authorization, HttpStatus.OK);
         }
         return new ResponseEntity("NOT_OK", HttpStatus.BAD_REQUEST);

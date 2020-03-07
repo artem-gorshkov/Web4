@@ -1,36 +1,17 @@
 import React from "react";
 import ReactDom from "react-dom";
-import LoginForm from "./component/LoginForm.jsx";
-import Header from "./component/Header.jsx";
-import RegistrationForm from "./component/RegistrationForm.jsx";
+import {BrowserRouter} from 'react-router-dom';
+import {createStore, applyMiddleware} from "redux";
+import promiseMiddleware from 'redux-promise';
+import reducer from "./reducer.js";
+import {Provider} from "react-redux";
+import App from "./App.jsx";
 
-class LoginPage extends React.Component {
+const store = createStore(reducer, applyMiddleware(promiseMiddleware));
 
-    goTime() {
-        let clock = document.getElementById("time");
-        clock.innerHTML = new Date().toLocaleTimeString();
-        window.setInterval(function () {
-            clock.innerHTML = new Date().toLocaleTimeString();
-        }, 5000);
-    }
-
-    componentDidMount() {
-        this.goTime();
-    }
-
-    render() {
-        return (
-            <div>
-                <Header/>
-                <div id="time"/>
-                <LoginForm/>
-                <RegistrationForm/>
-            </div>
-        )
-
-    }
-}
-
-ReactDom.render(<LoginPage/>, document.querySelector('#root'), () => {
-    console.log("App created")
-});
+ReactDom.render(
+    <Provider store={store}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </Provider>, document.querySelector('#root'));

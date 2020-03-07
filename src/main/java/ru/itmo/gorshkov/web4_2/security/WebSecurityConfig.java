@@ -14,26 +14,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/res/main", "/points").authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/", "/css/**","/js/**", "/img/**", "api/registration", "api/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/")
-                .defaultSuccessUrl("/res/main")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll()
-                .and()
-                .httpBasic();
+                .httpBasic()
+                .authenticationEntryPoint(authenticationEntryPoint);
     }
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
