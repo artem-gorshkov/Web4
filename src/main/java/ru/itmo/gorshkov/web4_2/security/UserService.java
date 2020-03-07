@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4.security;
+package ru.itmo.gorshkov.web4_2.security;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.itmo.gorshkov.web4.data.MyUser;
-import ru.itmo.gorshkov.web4.data.UserRepository;
+import ru.itmo.gorshkov.web4_2.data.MyUser;
+import ru.itmo.gorshkov.web4_2.data.UserRepository;
 
 @Slf4j
 @Service

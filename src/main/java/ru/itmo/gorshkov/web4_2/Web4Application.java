@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4;
+package ru.itmo.gorshkov.web4_2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

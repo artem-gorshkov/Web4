@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4.controller;
+package ru.itmo.gorshkov.web4_2.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itmo.gorshkov.web4.data.MyUser;
-import ru.itmo.gorshkov.web4.data.UserRepository;
+import ru.itmo.gorshkov.web4_2.data.MyUser;
+import ru.itmo.gorshkov.web4_2.data.UserRepository;
 
 @Slf4j
 @RestController

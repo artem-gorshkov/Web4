@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4;
+package ru.itmo.gorshkov.web4_2;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

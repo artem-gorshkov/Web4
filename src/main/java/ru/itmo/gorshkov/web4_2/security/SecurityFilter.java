@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4.security;
+package ru.itmo.gorshkov.web4_2.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.itmo.gorshkov.web4.data.MyUser;
+import ru.itmo.gorshkov.web4_2.data.MyUser;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
