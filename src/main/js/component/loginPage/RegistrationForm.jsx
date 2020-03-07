@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "./Input.jsx";
 import LoginForm from "./LoginForm.jsx";
+import belle from "belle";
 
 export default class RegistrationForm extends LoginForm {
 
@@ -19,10 +20,8 @@ export default class RegistrationForm extends LoginForm {
         if (!this.validation(this.state.username, this.state.password, this.state.passwordConfirm)) return false;
         this.sendUser("/api/registration").then(response => {
             if (response.ok) {
-                console.log(response);
                 this.updateWithMessage("Пользователь успешно добавлен");
-            }
-            else if (response.status === 400) {
+            } else if (response.status === 400) {
                 this.updateWithMessage("Пользователь уже существует");
             } else throw Error(response.statusText);
         }).catch(error => console.log(error));
@@ -53,19 +52,18 @@ export default class RegistrationForm extends LoginForm {
     }
 
     render() {
-        return (
-            <div>
-                <div className="message">{this.state.message}</div>
-                <form method="post" onSubmit={this.submit}>
-                    <Input id='username' label='Логин:' inputType='text'
-                           value={this.state.username} onChange={this.handleChange}/>
-                    <Input id='password' label='Пароль:' inputType='password'
-                           value={this.state.password} onChange={this.handleChange}/>
-                    <Input id='passwordConfirm' label='Пароль еше раз:' inputType='password'
-                           value={this.state.passwordConfirm} onChange={this.handleChange}/>
-                    <button type='submit'>Регистрация</button>
-                </form>
-
-            </div>);
+        const Button = belle.Button;
+        return <div>
+            <div className="message">{this.state.message}</div>
+            <form onSubmit={this.submit}>
+                <Input id='username' label='Логин:' inputType='text'
+                       value={this.state.username} onChange={this.handleChange}/>
+                <Input id='password' label='Пароль:' inputType='password'
+                       value={this.state.password} onChange={this.handleChange}/>
+                <Input id='passwordConfirm' label='Пароль еше раз:' inputType='password'
+                       value={this.state.passwordConfirm} onChange={this.handleChange}/>
+                <Button type="submit">Регистрация</Button>
+            </form>
+        </div>;
     }
 }

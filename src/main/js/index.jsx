@@ -9,9 +9,9 @@ import App from "./App.jsx";
 
 const store = createStore(reducer, applyMiddleware(promiseMiddleware));
 
-ReactDom.render((
+ReactDom.render(
     <Provider store={store}>
         <BrowserRouter>
             <App/>
         </BrowserRouter>
-    </Provider>), document.querySelector('#root'));
+    </Provider>, document.querySelector('#root'));

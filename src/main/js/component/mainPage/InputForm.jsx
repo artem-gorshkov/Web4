@@ -27,7 +27,7 @@ export default class InputForm extends React.Component {
         else {
             console.log("send");
             console.log(point);
-            this.props.addPoint(point, this.props.token);
+            this.props.addPoint(point, this.props.token, this.props.username);
             this.setState({
                 x: '',
                 y: '',
@@ -64,6 +64,7 @@ export default class InputForm extends React.Component {
 
     render() {
         const TextInput = belle.TextInput;
+        const Button = belle.Button;
         return <form id="inputForm" className="inputForm" onSubmit={this.handleSubmit}>
             <table className="fancyTable">
                 <tbody>
@@ -102,7 +103,7 @@ export default class InputForm extends React.Component {
                 </tr>
                 </tbody>
             </table>
-            <button type='submit'>Отправить</button>
+            <Button type="submit">Отправить</Button>
         </form>
     }
 }

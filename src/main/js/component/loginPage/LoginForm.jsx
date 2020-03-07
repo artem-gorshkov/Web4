@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "./Input.jsx";
-import { Base64 } from 'js-base64';
+import belle from "belle";
 
 export default class LoginForm extends React.Component {
 
@@ -19,26 +19,30 @@ export default class LoginForm extends React.Component {
     submit(event) {
         event.preventDefault();
         if (!this.validation(this.state.username, this.state.password)) return false;
-        const link = '/main'; //URL of main page
-        this.sendUser("/api/login")
+        const link = '/main';
+        this.sendUser("/api/login", {method: "POST"})
             .then(response => {
                 if (response.ok) {
-                    console.log(response);
-                    this.props.setToken(response.text());
-                    this.props.history.push(link);
-                } else if (response.status === 400) {
-                    this.updateWithMessage("Пользователь не найден");
-                } else throw Error(response.statusText);
-            }).catch(error => console.log(error));
+                    return response.text();
+                } else throw Error("No such user");
+            }).then(token => {
+            this.props.setToken(token, this.state.username);
+            this.props.history.push(link);
+        }).catch(error => {
+            console.log(error);
+            this.updateWithMessage("Пользователь не найден");
+        });
+        document.forms[0].reset();
     }
 
     sendUser(url) {
-        document.forms[1].reset();
-        let headers = new Headers();
-        headers.set('Authorization', 'Basic ' + Base64.encode(this.state.username + ":" + this.state.password));
+        const user = {'username': this.state.username, 'password': this.state.password};
         return fetch(url, {
-            method: "GET",
-            headers: headers
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
         })
     }
 
@@ -70,16 +74,16 @@ export default class LoginForm extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                <div className="message">{this.state.message}</div>
-                <form  method="post" onSubmit={this.submit}>
-                    <Input id='username' label='Логин:' inputType='text'
-                           value={this.state.username} onChange={this.handleChange}/>
-                    <Input id='password' label='Пароль:' inputType='password'
-                           value={this.state.password} onChange={this.handleChange}/>
-                    <button type='submit'>Войти</button>
-                </form>
-            </div>);
+        const Button = belle.Button;
+        return <div>
+            <div className="message">{this.state.message}</div>
+            <form onSubmit={this.submit}>
+                <Input id='username' label='Логин:' inputType='text'
+                       value={this.state.username} onChange={this.handleChange}/>
+                <Input id='password' label='Пароль:' inputType='password'
+                       value={this.state.password} onChange={this.handleChange}/>
+                <Button type="submit">Вход</Button>
+            </form>
+        </div>;
     }
 }

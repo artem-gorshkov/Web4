@@ -1,33 +1,18 @@
 import React from "react";
-import {connect} from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import mapDispatchToProps from './actions.js';
 import Header from "./component/Header.jsx";
 import LoginPage from "./component/LoginPage.jsx";
 import MainPage from "./component/MainPage.jsx";
 
-class App extends React.Component {
+export default class App extends React.Component {
 
     render() {
-        console.log("app props");
-        console.log(this.props);
         return <div>
             <Header/>
             <Switch>
-                <Route exact path='/' render={(props) => (<LoginPage {... this.props}/>)}/>
-                <Route path='/main' render={(props) => (<MainPage {... this.props} />)}/>
+                <Route exact path='/' component={LoginPage}/>
+                <Route path='/main' component={MainPage}/>
             </Switch>
         </div>
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        points: state.get("points"),
-        radius: state.get("radius"),
-        error: state.get("error"),
-        token: state.get("token")
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)

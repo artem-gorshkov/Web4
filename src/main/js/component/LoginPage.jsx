@@ -1,6 +1,7 @@
 import React from "react";
 import LoginForm from "./loginPage/LoginForm.jsx";
 import RegistrationForm from "./loginPage/RegistrationForm.jsx";
+import {connect} from "react-redux";
 
 export default class LoginPage extends React.Component {
 
@@ -17,15 +18,24 @@ export default class LoginPage extends React.Component {
     }
 
     render() {
+        const LoginForm1 = connect(null, {setToken})(LoginForm);
         return (
             <div>
                 <div id="time"/>
-                Войти:
-                <LoginForm {...this.props}/>
-                Регистрация:
-                <RegistrationForm {...this.props}/>
+                <b>Войти:</b>
+                <LoginForm1 history={this.props.history}/>
+                <b>Регистрация:</b>
+                <RegistrationForm/>
             </div>
         )
 
     }
 }
+
+const setToken = function (token, username) {
+    return {
+        type: "SET_TOKEN",
+        token,
+        username
+    }
+};
