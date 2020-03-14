@@ -27,7 +27,7 @@ export default class LoginForm extends React.Component {
                 } else throw Error("No such user");
             }).then(token => {
             this.props.setToken(token, this.state.username);
-            this.props.history.push(link);
+            this.props.history.replace(link);
         }).catch(error => {
             console.log(error);
             this.updateWithMessage("Пользователь не найден");

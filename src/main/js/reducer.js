@@ -1,6 +1,6 @@
 import {Map} from 'immutable';
 
-const initialState = Map({points: [], radius: null, error: '', token: '', username: ''});
+const initialState = Map({points: [], radius: null, error: '', token: window.sessionStorage.getItem('token'), username: window.sessionStorage.getItem('username')});
 
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -17,8 +17,12 @@ export default function (state = initialState, action) {
         case "SET_ERROR":
             return state.set('error', action.error);
         case "SET_TOKEN":
+            window.sessionStorage.setItem('token', action.token);
+            window.sessionStorage.setItem('username', action.username);
             return state.set('token', action.token).set('username', action.username);
         case "LOGOUT":
+            window.sessionStorage.setItem('token', '');
+            window.sessionStorage.setItem('username', '');
             return state.set('token', '').set('username', '');
     }
     return state;

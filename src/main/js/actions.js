@@ -58,7 +58,6 @@ const setPoints = async function (token, username) {
 
 const logout = async function (token, username) {
     const url = "/api/logout";
-    let data = {};
     let response = await fetch(url, {
         method: "POST",
         headers: {

@@ -27,7 +27,7 @@ public class LogoutController {
     public ResponseEntity logoutUser(@RequestHeader("X-USER-ID") String username) {
         MyUser user = repository.findByUsername(username);
         user.setToken(null);
-        log.info("Logout new user: " + user.getUsername());
+        log.info("Logout user: " + user.getUsername());
         return new ResponseEntity("OK", HttpStatus.OK);
     }
 }

@@ -21,8 +21,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/registration").permitAll()
                 .antMatchers("/", "css/*", "js/*", "img/*").permitAll()
-                .antMatchers("/api/points", "/main").authenticated()
+                .antMatchers("/api/points").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/logout").authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
     }

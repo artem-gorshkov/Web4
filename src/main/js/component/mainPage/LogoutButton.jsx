@@ -7,7 +7,7 @@ export default class LogoutButton extends React.Component {
         return <form onSubmit={(event) => {
             event.preventDefault();
             this.props.logout(this.props.token, this.props.username);
-            this.props.history.push('/');
+            this.props.history.replace("/");
         }}>
             <Button type="submit" primary>Выход</Button>
         </form>
