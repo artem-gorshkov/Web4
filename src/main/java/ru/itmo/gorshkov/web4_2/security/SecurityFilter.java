@@ -25,9 +25,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String requestTokenHeader = request.getHeader("Authorization");
-        log.info(requestTokenHeader);
         String username = request.getHeader("X-USER-ID");
-        log.info(username);
         MyUser myUser = (MyUser) userService.loadUserByUsername(username);
         if (requestTokenHeader != null && username != null && SecurityContextHolder.getContext().getAuthentication() == null
         && myUser.getToken() != null && requestTokenHeader.equals(myUser.getToken())) {

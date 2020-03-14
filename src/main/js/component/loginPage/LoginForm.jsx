@@ -75,7 +75,7 @@ export default class LoginForm extends React.Component {
 
     render() {
         const Button = belle.Button;
-        return <div>
+        return <div id="lform">
             <div className="message">{this.state.message}</div>
             <form onSubmit={this.submit}>
                 <Input id='username' label='Логин:' inputType='text'

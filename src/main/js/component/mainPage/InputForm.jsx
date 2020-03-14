@@ -25,8 +25,6 @@ export default class InputForm extends React.Component {
             point.r === '' || point.r === '-')
             this.props.setError('Укажите все значения!');
         else {
-            console.log("send");
-            console.log(point);
             this.props.addPoint(point, this.props.token, this.props.username);
             this.setState({
                 x: '',
@@ -58,8 +56,6 @@ export default class InputForm extends React.Component {
                 this.props.changeRadius(value);
             }
         }
-        console.log("formState");
-        console.log(this.state);
     }
 
     render() {

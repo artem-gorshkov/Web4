@@ -24,8 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/points", "/main").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/logout").authenticated()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
