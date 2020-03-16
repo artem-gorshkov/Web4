@@ -76,13 +76,13 @@ export default class LoginForm extends React.Component {
     render() {
         const Button = belle.Button;
         return <div id="lform">
-            <div className="message">{this.state.message}</div>
+            <div className="error">{this.state.message}</div>
             <form onSubmit={this.submit}>
                 <Input id='username' label='Логин:' inputType='text'
                        value={this.state.username} onChange={this.handleChange}/>
                 <Input id='password' label='Пароль:' inputType='password'
                        value={this.state.password} onChange={this.handleChange}/>
-                <Button type="submit">Вход</Button>
+                <Button className="button" type="submit">Вход</Button>
             </form>
         </div>;
     }

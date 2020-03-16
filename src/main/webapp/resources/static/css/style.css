@@ -12,24 +12,18 @@
 
 .Header * {
     margin-top: 5px;
+    font-size: 2.5vmin;
 }
 
 .Header h1 {
-    font-size: 3.5vmin;
     color: darkblue;
 }
 
-.Header h2 {
-    font-size: 3.2vmin;
-}
-
 .Header h3 {
-    font-size: 3vmin;
     color: #5E81A8;
 }
 
 .Header h4 {
-    font-size: 2.7vmin;
     color: cornflowerblue;
 }
 
@@ -38,7 +32,7 @@ body {
     background: url('../img/background.png') white;
     text-align: center;
     font-family: serif;
-    font-size: 2.3vmin;
+    margin-top: 2vmin;
 }
 
 body * {
@@ -47,13 +41,13 @@ body * {
 
 #time {
     font-family: Chandas, serif;
-    font-size: 4vmin;
+    font-size: 2vmax;
     color: #45688E;
     margin-top: 3%
 }
 
 .Table {
-    width: 60%;
+    width: 60vw;
     table-layout: auto;
     margin: 2% auto;
     background: #5E81A8;
@@ -79,10 +73,10 @@ body * {
 }
 
 .error {
-    font-size: 14pt;
     font-family: monospace;
     color: red;
     text-align: center;
+    font-size: 14pt;
 }
 
 .tdCenter td, th {
@@ -90,18 +84,31 @@ body * {
     padding: 2px;
 }
 
-#points {
-    display: none;
+#canvas {
+    width: 500px;
+    height: 500px;
 }
 
+@media only screen and (max-width: 1119px) and (min-width: 717px) {
+    .Header * {
+        font-size: 3vmin;
+    }
+    #canvas {
+        width: 80vmin;
+        height: 80vmin;
+    }
+}
 
-/*@media only screen and (max-width: 1086px) and (min-width: 802px) {*/
+@media only screen and (max-width: 717px) {
+    #canvas {
+        width: 80vmin;
+        height: 80vmin;
+    }
 
-/*}*/
-
-/*@media only screen and (max-width: 802px) {*/
-/*    #lform {*/
-/*        font-size: 5vmin;*/
-
-/*    }*/
-/*}*/
+    .Header * {
+        font-size: 3.5vmin;
+    }
+    .Table td, th{
+        font-size: 3vw;
+    }
+}

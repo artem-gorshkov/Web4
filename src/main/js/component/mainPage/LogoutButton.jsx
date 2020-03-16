@@ -9,7 +9,7 @@ export default class LogoutButton extends React.Component {
             this.props.logout(this.props.token, this.props.username);
             this.props.history.replace("/");
         }}>
-            <Button type="submit" primary>Выход</Button>
+            <Button className="button" type="submit" primary>Выход</Button>
         </form>
     }
 }

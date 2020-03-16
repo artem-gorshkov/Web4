@@ -29,9 +29,9 @@ export default class Plot extends React.Component {
     }
 
     handleClick(event) {
-        const width = document.getElementById("canvas").getAttribute("width");
-        const height = document.getElementById("canvas").getAttribute("height");
 
+        const width = parseInt(getComputedStyle(document.getElementById("canvas")).width);
+        const height = parseInt(getComputedStyle(document.getElementById("canvas")).height);
         const radius = this.props.radius;
         if (radius == null) this.props.setError('Укажите радиус!');
         else {

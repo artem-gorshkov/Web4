@@ -54,7 +54,7 @@ export default class RegistrationForm extends LoginForm {
     render() {
         const Button = belle.Button;
         return <div>
-            <div className="message">{this.state.message}</div>
+            <div className="error">{this.state.message}</div>
             <form onSubmit={this.submit}>
                 <Input id='username' label='Логин:' inputType='text'
                        value={this.state.username} onChange={this.handleChange}/>
@@ -62,7 +62,7 @@ export default class RegistrationForm extends LoginForm {
                        value={this.state.password} onChange={this.handleChange}/>
                 <Input id='passwordConfirm' label='Пароль еше раз:' inputType='password'
                        value={this.state.passwordConfirm} onChange={this.handleChange}/>
-                <Button type="submit">Регистрация</Button>
+                <Button className="button" type="submit">Регистрация</Button>
             </form>
         </div>;
     }
