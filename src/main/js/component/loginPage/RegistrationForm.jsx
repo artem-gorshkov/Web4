@@ -32,9 +32,6 @@ export default class RegistrationForm extends LoginForm {
         if (username === '' || password === '') {
             this.updateWithMessage('Заполните все необходимые поля.');
             return false;
-        } else if (username.length < 6 || password.length < 6) {
-            this.updateWithMessage('Длина логина и пароля должна быть больше 6 символов');
-            return false;
         } else if (password !== passwordConfirm) {
             this.updateWithMessage('Пароли различаются.');
             return false;

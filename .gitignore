@@ -40,3 +40,4 @@ mvnw
 mvnw.cmd
 # Project exclude paths
 /src/main/webapp/resources/static/js/
+out

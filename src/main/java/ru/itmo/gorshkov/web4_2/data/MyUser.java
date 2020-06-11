@@ -18,9 +18,7 @@ public class MyUser implements UserDetails {
     @GeneratedValue
     private Long id;
     @Column(unique = true)
-    @Size(min = 6, message = "Не меньше 6 знаков")
     private String username;
-    @Size(min = 6, message = "Не меньше 6 знаков")
     private String password;
     private String token;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
