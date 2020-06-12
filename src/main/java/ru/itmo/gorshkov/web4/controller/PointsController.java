@@ -53,7 +53,9 @@ public class PointsController {
         user.addPoint(point);
         repository.save(user);
 
+        //MBeans
         countPoints.updateCounters(result == 0);
+        areaOfShape.calculateArea(Double.parseDouble(point.getR().toString()));
 
         log.info("POST Point: " + point);
         return pointDTO;

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.itmo.gorshkov</groupId>
-    <artifactId>web4_2</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>web4_2</name>
+    <artifactId>web4</artifactId>
+    <version>1</version>
+    <name>web4</name>
     <description>Spring + React</description>
     <packaging>jar</packaging>
 
