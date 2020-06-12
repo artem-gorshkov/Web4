@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4_2.data;
+package ru.itmo.gorshkov.web4.data;
 
 
 import lombok.Data;
@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.*;
 
 @Data

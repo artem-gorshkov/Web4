@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4_2.data;
+package ru.itmo.gorshkov.web4.data;
 
 import org.springframework.data.repository.CrudRepository;
 

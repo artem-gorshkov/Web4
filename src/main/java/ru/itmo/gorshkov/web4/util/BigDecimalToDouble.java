@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4_2.util;
+package ru.itmo.gorshkov.web4.util;
 
 import java.math.BigDecimal;
 

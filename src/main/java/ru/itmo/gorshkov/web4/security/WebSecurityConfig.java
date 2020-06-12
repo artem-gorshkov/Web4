@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4_2.security;
+package ru.itmo.gorshkov.web4.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

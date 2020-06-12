@@ -1,4 +1,4 @@
-package ru.itmo.gorshkov.web4_2.mbeans;
+package ru.itmo.gorshkov.web4.mbeans;
 
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;

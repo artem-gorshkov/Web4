@@ -1,15 +1,17 @@
-package ru.itmo.gorshkov.web4_2.controller;
+package ru.itmo.gorshkov.web4.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.itmo.gorshkov.web4_2.data.MyUser;
-import ru.itmo.gorshkov.web4_2.data.Point;
-import ru.itmo.gorshkov.web4_2.data.PointDTO;
-import ru.itmo.gorshkov.web4_2.data.UserRepository;
-import ru.itmo.gorshkov.web4_2.util.BigDecimalToDouble;
+import ru.itmo.gorshkov.web4.data.MyUser;
+import ru.itmo.gorshkov.web4.data.Point;
+import ru.itmo.gorshkov.web4.data.PointDTO;
+import ru.itmo.gorshkov.web4.data.UserRepository;
+import ru.itmo.gorshkov.web4.mbeans.AreaOfShape;
+import ru.itmo.gorshkov.web4.mbeans.CountPoints;
+import ru.itmo.gorshkov.web4.util.BigDecimalToDouble;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
@@ -21,10 +23,16 @@ import java.util.List;
 @RequestMapping("/api/points")
 public class PointsController {
     private final UserRepository repository;
+    private final CountPoints countPoints;
+    private final AreaOfShape areaOfShape;
+
+
 
     @Autowired
-    public PointsController(UserRepository repository) {
+    public PointsController(UserRepository repository, CountPoints countPoints, AreaOfShape areaOfShape) {
         this.repository = repository;
+        this.countPoints = countPoints;
+        this.areaOfShape = areaOfShape;
     }
 
     @GetMapping
@@ -44,6 +52,9 @@ public class PointsController {
         pointDTO.setResult(result);
         user.addPoint(point);
         repository.save(user);
+
+        countPoints.updateCounters(result == 0);
+
         log.info("POST Point: " + point);
         return pointDTO;
     }
@@ -57,6 +68,7 @@ public class PointsController {
         double x = BigDecimalToDouble.convert(point.getX());
         double y = BigDecimalToDouble.convert(point.getY());
         double r = BigDecimalToDouble.convert(point.getR());
+        boolean circle = Math.pow(x, 2) + Math.pow(y, 2) > Math.pow(r / 2, 2);
         if (r >= 0) {
             if (x < 0) {
                 if (y > 0)
@@ -69,7 +81,7 @@ public class PointsController {
                 }
             } else {
                 if (y > 0) {
-                    if (Math.pow(x, 2) + Math.pow(y, 2) > Math.pow(r / 2, 2))
+                    if (circle)
                         return 0;
                     else
                         return 1;
@@ -93,7 +105,7 @@ public class PointsController {
                 }
             } else {
                 if (y < 0) {
-                    if (Math.pow(x, 2) + Math.pow(y, 2) > Math.pow(r / 2, 2))
+                    if (circle)
                         return 0;
                     else
                         return 1;
